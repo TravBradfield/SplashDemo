@@ -1,0 +1,25 @@
+<div class="content">
+    <h2 *ngIf='currentOrigin == "location"'>Current Location</h2>
+    <h2 *ngIf='currentOrigin == "origin"'>Origin Location</h2>
+
+    <div *ngIf='locationDetails'>
+        <mat-card-content>
+            <section>
+                <div class='label'>Name</div>
+                <div class='value-row'>{{ locationDetails.name }}</div>
+            </section>
+            <section>
+                <div class='label'>Dimension</div>
+                <div class='value-row'>{{ locationDetails.dimension }}</div>
+            </section>
+            <section>
+                <div class='label'>Residents</div>
+                <div class='value-row'>{{ locationDetails.residents.length }}</div>
+            </section>
+            <section>
+                <div class='label'>Type</div>
+                <div class='value-row'>{{ locationDetails.type }}</div>
+            </section>
+        </mat-card-content>
+    </div>
+</div>

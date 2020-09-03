@@ -1,0 +1,44 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LocationService {
+
+  messages: string[] = [];
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  getLocationDetails(url): Observable<any> {
+    this.log('getLocationDetails()');
+    return this.http.get<any>(url).pipe(
+      tap(_ => this.log('getLocationDetails() complete')),
+      catchError(this.handleError<any>('getLocationDetails'))
+    );
+  }
+
+  private log(message: string) {
+    this.add(`HeroService: ${message}`);
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      this.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    }
+  }
+
+  add(message: string) {
+    this.messages.push(message);
+  }
+
+  clear() {
+    this.messages = [];
+  }
+}

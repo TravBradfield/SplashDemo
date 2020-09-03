@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'splash-app';
+
+  openGithub() {
+    window.open("https://github.com/TravBradfield/GridLayout");
+  }
 }
