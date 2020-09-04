@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "splashdemo-6a26a"
+  },
+  "targets": {
+    "splash-app": {
+      "hosting": {
+        "app": [
+          "splash-app"
+        ]
+      }
+    }
+  }
+}
