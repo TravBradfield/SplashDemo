@@ -9,6 +9,6 @@ export class AppComponent {
   title = 'splash-app';
 
   openGithub() {
-    window.open("https://github.com/TravBradfield/GridLayout");
+    window.open("https://github.com/TravBradfield/SplashDemo");
   }
 }
