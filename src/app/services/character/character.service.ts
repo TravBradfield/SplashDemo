@@ -11,6 +11,7 @@ export class CharacterService {
 
   messages: string[] = [];
   splashApi: string = "https://gbngq2s2e0.execute-api.eu-west-2.amazonaws.com/api/characters";
+  corsError: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -38,7 +39,8 @@ export class CharacterService {
 
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
+      console.error("Trav Error: ", error);
+      this.corsError = true;
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     }

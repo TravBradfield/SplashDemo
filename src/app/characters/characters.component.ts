@@ -28,7 +28,7 @@ export class CharactersComponent implements OnInit {
   searchForm: FormGroup;
 
   constructor(
-    private characterService: CharacterService,
+    public characterService: CharacterService,
     private modalService: NgbModal,
     private formBuilder: FormBuilder
   ) {
@@ -55,6 +55,8 @@ export class CharactersComponent implements OnInit {
   getCharacters() {
     this.characterService.getCharacterData(this.splashApi).subscribe(result => {
       this.populatePage(result);
+    }, err => {
+      console.log('Error: ', err);
     })
   }
 

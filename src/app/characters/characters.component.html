@@ -2,7 +2,7 @@
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
-<div class="content" role="main" [formGroup]='searchForm'>
+<div class="content" role="main" [formGroup]='searchForm' *ngIf=!characterService.corsError>
     <mat-form-field class="example-form-field">
         <mat-label>Search this page</mat-label>
         <input matInput type="text" #search formControlName='name'>
@@ -20,6 +20,16 @@
         </mat-list-item>
     </mat-list>
 
+</div>
+
+<div class="content" role="main" *ngIf=characterService.corsError>
+    <mat-card>
+        <mat-card-title>Whoops!</mat-card-title>
+        <mat-card-content>
+            There has been a CORS error, please install a cross origin handler plugin in your browser. This is a good one:
+            <a mat-raised-button color="accent" href="https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc" target="_blank">Anti-CORS Errors</a>
+        </mat-card-content>
+    </mat-card>
 </div>
 
 <mat-toolbar color="primary" class='page-details-footer' *ngIf='pageInformation'>
