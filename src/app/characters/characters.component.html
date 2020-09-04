@@ -2,11 +2,11 @@
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
-<div class="content" role="main">
+<div class="content" role="main" [formGroup]='searchForm'>
     <mat-form-field class="example-form-field">
         <mat-label>Search this page</mat-label>
-        <input matInput type="text" #search (keyup)='updateSearch($event)'>
-        <button mat-button *ngIf="searchQuery" matSuffix mat-icon-button aria-label="Clear" (click)="searchQuery=''">
+        <input matInput type="text" #search formControlName='name'>
+        <button mat-button matSuffix mat-icon-button aria-label="Clear">
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
@@ -21,8 +21,6 @@
     </mat-list>
 
 </div>
-
-
 
 <mat-toolbar color="primary" class='page-details-footer' *ngIf='pageInformation'>
 

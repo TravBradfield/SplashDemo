@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NgbActiveModal, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CharacterdetailsComponent } from './characterdetails.component';
 
 describe('CharacterdetailsComponent', () => {
@@ -8,9 +9,16 @@ describe('CharacterdetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CharacterdetailsComponent ]
+      declarations: [CharacterdetailsComponent],
+      imports: [
+        HttpClientTestingModule
+      ],
+      providers: [
+        NgbActiveModal,
+        NgbModal
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

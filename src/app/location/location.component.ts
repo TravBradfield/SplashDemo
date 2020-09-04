@@ -8,8 +8,8 @@ import { LocationService } from '../services/location/location.service';
 })
 export class LocationComponent implements OnInit {
   
-  @Input() location;
-  @Input() currentOrigin;
+  @Input() location: { name: string, url: string; };
+  @Input() currentOrigin: { name: string, url: string; };
 
   locationDetails: any;
 

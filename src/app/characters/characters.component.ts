@@ -3,6 +3,7 @@ import { CharacterService } from '../services/character/character.service';
 import { CharResponse } from '../../assets/models/charResponse.interface'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CharacterdetailsComponent } from '../characterdetails/characterdetails.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
@@ -22,22 +23,37 @@ export class CharactersComponent implements OnInit {
   characters: CharResponse[];
   cloneCharacters: CharResponse[];
 
-  searchQuery: string = '';
-  emailFormControl;
+  splashApi: string = "https://gbngq2s2e0.execute-api.eu-west-2.amazonaws.com/api/characters";
+
+  searchForm: FormGroup;
 
   constructor(
     private characterService: CharacterService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private formBuilder: FormBuilder
   ) {
+    this.searchForm = this.formBuilder.group({
+      name: '',
+    });
+
+    this.onChanges();
   }
 
   ngOnInit(): void {
     this.getCharacters();
   }
 
+  onChanges() {
+    this.searchForm.valueChanges.subscribe(val => {
+      let filtered = this.cloneCharacters.filter(char => {
+        return char.name.toLowerCase().indexOf(val.name) > -1
+      });
+      this.characters = filtered;
+    })
+  }
+
   getCharacters() {
-    this.characterService.getCharacterData().subscribe(result => {
-      console.log('Result: ', result);
+    this.characterService.getCharacterData(this.splashApi).subscribe(result => {
       this.populatePage(result);
     })
   }
@@ -49,12 +65,10 @@ export class CharactersComponent implements OnInit {
     setTimeout(() => {
       this.searchElement.nativeElement.focus();
     }, 100);
-    
   }
 
   openDetails(character) {
     const modalRef = this.modalService.open(CharacterdetailsComponent, { scrollable: true });
-    // modalRef.componentInstance.character = JSON.stringify(character);
     modalRef.componentInstance.character = character;
   }
 
@@ -77,21 +91,4 @@ export class CharactersComponent implements OnInit {
       })
     }
   }
-
-  updateSearch(ev) {
-    console.log('ev: ', ev)
-    if (ev.key !== 'Backspace' && ev.key !== 'Enter') {
-      this.searchQuery += ev.key;
-    } else {
-      this.searchQuery = this.searchQuery.substring(0, this.searchQuery.length - 1);
-    }
-    
-    console.log('Search term: ', this.searchQuery);
-    let filtered = this.cloneCharacters.filter(char => {
-      return char.name.indexOf(this.searchQuery) > -1;
-    });
-    console.log('filtered: ', filtered);
-    this.characters = filtered;
-  }
-
 }

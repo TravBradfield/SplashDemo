@@ -16,9 +16,9 @@ export class CharacterService {
     private http: HttpClient,
   ) { }
 
-  getCharacterData(): Observable<TotalResponse> {
+  getCharacterData(url): Observable<TotalResponse> {
     this.log('getCharacterData()');
-    return this.http.get<TotalResponse>(this.splashApi).pipe(
+    return this.http.get<TotalResponse>(url).pipe(
       tap(_ => this.log('getCharacterData() complete')),
       catchError(this.handleError<TotalResponse>('getCharacterData'))
     );
@@ -36,7 +36,7 @@ export class CharacterService {
     this.add(`HeroService: ${message}`);
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       this.log(`${operation} failed: ${error.message}`);
